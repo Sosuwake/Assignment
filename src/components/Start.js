@@ -1,15 +1,16 @@
 import React from "react";
+import { DisplayMap } from "../constants";
 
 export function Start(props) {
-  const { round, setRound, setDisplay, setTime } = props;
+  const { currentRound, setCurrentRound, setCurrentDisplay, setTime } = props;
 
   const handleChange = (e) => {
-    setRound(e.target.value);
+    setCurrentRound(e.target.value);
   };
 
   const handleClick = () => {
     setTime(Date.now());
-    setDisplay(1);
+    setCurrentDisplay(DisplayMap.Game);
   };
 
   return (
@@ -24,7 +25,7 @@ export function Start(props) {
           type="number"
           min="1"
           max="20"
-          value={round}
+          value={currentRound}
           onChange={handleChange}
           autoFocus
         />

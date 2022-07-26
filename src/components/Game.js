@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { DisplayMap } from "../constants";
+
+// number of rounds must be autofocused
+// increase the size of the terms in expressions from 0-19
+// randomly select numbers and signs in each round and test for all operators
+// compare the player's answer with the correct answer and if it's wrong, the game continues
+// display the different expressions and the answers given
+// if the answer is given within three seconds or less it should appear green
+// if the correct answer is given in more than three seconds it should appear orange
+// if the wrong answer is given it should be red
+// the amount of time spent on each guess should be displayed in square brackets beside each expression
 
 export const Game = (props) => {
-  const { round, setDisplay } = props;
+  const { currentRound, setCurrentDisplay } = props;
   const [val1, setVal1] = useState("");
   const [val2, setVal2] = useState("");
   const [sum, setSum] = useState("");
@@ -40,8 +51,8 @@ export const Game = (props) => {
       if (+val1 + +val2 === +sum) {
         setCount((count) => count + 1);
 
-        if (count == round) {
-          setDisplay(2);
+        if (count == currentRound) {
+          setCurrentDisplay(DisplayMap.End);
         }
         setSum("");
         mathExpression();
@@ -49,7 +60,7 @@ export const Game = (props) => {
     };
 
     const handleClick = () => {
-      setDisplay(0);
+      setCurrentDisplay(DisplayMap.Start);
     };
 
     return (
@@ -65,4 +76,7 @@ export const Game = (props) => {
       </div>
     );
   }
+};
+const getNumberFrom0to20 = () => {
+  Math.floor(Math.random() * 20);
 };
