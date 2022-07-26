@@ -1,0 +1,81 @@
+body{
+    height: 100vh;
+}
+.expression{
+    display: flex;
+    justify-content: center;
+}
+#root{
+    background-image: url("https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg");
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+}
+.start-button{
+    margin: 1rem auto;
+    display: block;
+}
+.container{
+    background-color: white;
+    border-radius: 0.6rem;
+    padding: 1.5rem;
+}
+#wrong-answer{
+    width: fit-content;
+    margin: auto;
+    color: black;
+    font-size: 0.7rem;
+}
+.intro{
+    color: white;
+}
+.rounds{
+    color: white;
+    width: 400px;
+    height: 100px;
+    background: pink;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-left: 4rem;
+}
+
+.math{
+    color:aliceblue;
+}
+
+#game_over{
+    color:aliceblue;
+}
+
+#time_spent{
+    color:aliceblue;
+}
+
+.end{
+    color: white;
+    width: 400px;
+    height: 200px;
+    background: pink;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-left: 4rem;
+}
+
+
+
+.gameplay{
+    color: white;
+    width: 200px;
+    height: 200px;
+    background: pink;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-left: 4rem;
+}    
