@@ -13,70 +13,64 @@ import { DisplayMap } from "../constants";
 
 export const Game = (props) => {
   const { currentRound, setCurrentDisplay } = props;
-  const [val1, setVal1] = useState("");
-  const [val2, setVal2] = useState("");
-  const [sum, setSum] = useState("");
-  const [count, setCount] = useState(1);
+  const [val1, setVal1] = useState(getNumberFrom0to20);
+  const [val2, setVal2] = useState(getNumberFrom0to20);
+  const [result, setResult] = useState("");
+  const [operator, setOperator] = useState(getRandomSign);
 
-  {
-    useEffect(() => mathExpression(), []);
+  const resetRound = () => {
+    setVal1(getNumberFrom0to20);
+    setVal2(getNumberFrom0to20);
+    setOperator(getRandomSign);
+  };
 
-    const mathExpression = () => {
-      setVal1(Math.floor(Math.random() * 20));
-      setVal2(Math.floor(Math.random() * 20));
-    };
+  const getResult = (val1, val2, sign) => {
+    switch (sign) {
+      case "+":
+        return val1 + val2;
+      case "-":
+        return val1 - val2;
+      case "/":
+        return val1 / val2;
+      case "*":
+        return val1 * val2;
+    }
+  };
+  // when an answer is submitted, whether it is correct or not, the game continues
+  // the input is meant to reset
+  // save the operator, expression and given answer in history
+  // clear and generate a new math expression
+  const submit = (e) => {
+    e.preventDefault();
+  };
 
-    const signs = ["+", "-", "/", "*"];
+  const afterSubmit = () => {
+    const history = ["operator", "expression", "givenanswer"];
+  };
 
-    const getOperation = (val1, val2, sign) => {
-      switch (sign) {
-        case "+":
-          return val1 + val2;
-        case "-":
-          return val1 - val2;
-        case "/":
-          return val1 / val2;
-        case "*":
-          return val1 * val2;
-      }
-    };
+  const handleClick = () => {
+    setCurrentDisplay(DisplayMap.Start);
+  };
 
-    const submit = (e) => {
-      e.preventDefault();
-      const formValid = sum >= 0;
-      if (!formValid) {
-        return;
-      }
-
-      if (+val1 + +val2 === +sum) {
-        setCount((count) => count + 1);
-
-        if (count == currentRound) {
-          setCurrentDisplay(DisplayMap.End);
-        }
-        setSum("");
-        mathExpression();
-      }
-    };
-
-    const handleClick = () => {
-      setCurrentDisplay(DisplayMap.Start);
-    };
-
-    return (
-      <div className="gameplay">
-        <form onSubmit={submit}>
-          <h2 className="math">{`${val1} +  ${val2}`}</h2>
-          <input value={sum} onChange={(e) => setSum(e.target.value)} />
-          <button type="submit">Play</button>
-        </form>
-        <button id="start" type="button" onClick={handleClick}>
-          Home
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className="gameplay">
+      <form onSubmit={submit}>
+        <h2 className="math">{`${val1} ${operator} ${val2}`}</h2>
+        <input value={result} onChange={(e) => setResult(e.target.value)} />
+        <button type="submit">Play</button>
+      </form>
+      <button id="start" type="button" onClick={handleClick}>
+        Home
+      </button>
+    </div>
+  );
 };
-const getNumberFrom0to20 = () => {
-  Math.floor(Math.random() * 20);
+
+const getNumberFrom0to20 = () => Math.floor(Math.random() * 20);
+const getRandomSign = () => {
+  const signs = ["+", "-", "/", "*"];
+  const length = signs.length;
+  const randomIndex = Math.floor(Math.random() * length);
+
+  return signs[randomIndex];
 };

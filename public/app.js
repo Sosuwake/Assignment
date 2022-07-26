@@ -34319,64 +34319,53 @@
       currentRound,
       setCurrentDisplay
     } = props;
-    const [val1, setVal1] = react.exports.useState("");
-    const [val2, setVal2] = react.exports.useState("");
-    const [sum, setSum] = react.exports.useState("");
-    const [count, setCount] = react.exports.useState(1);
-    {
-      react.exports.useEffect(() => mathExpression(), []);
+    const [val1, setVal1] = react.exports.useState(getNumberFrom0to20);
+    const [val2, setVal2] = react.exports.useState(getNumberFrom0to20);
+    const [result, setResult] = react.exports.useState("");
+    const [operator, setOperator] = react.exports.useState(getRandomSign);
+    // the input is meant to reset
+    // save the operator, expression and given answer in history
+    // clear and generate a new math expression
 
-      const mathExpression = () => {
-        setVal1(Math.floor(Math.random() * 20));
-        setVal2(Math.floor(Math.random() * 20));
-      };
 
-      const submit = e => {
-        e.preventDefault();
-        const formValid = sum >= 0;
+    const submit = e => {
+      e.preventDefault();
+    };
 
-        if (!formValid) {
-          return;
-        }
+    const handleClick = () => {
+      setCurrentDisplay(DisplayMap.Start);
+    };
 
-        if (+val1 + +val2 === +sum) {
-          setCount(count => count + 1);
-
-          if (count == currentRound) {
-            setCurrentDisplay(DisplayMap.End);
-          }
-
-          setSum("");
-          mathExpression();
-        }
-      };
-
-      const handleClick = () => {
-        setCurrentDisplay(DisplayMap.Start);
-      };
-
-      return /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
-        className: "gameplay",
-        children: [/*#__PURE__*/jsxRuntime.exports.jsxs("form", {
-          onSubmit: submit,
-          children: [/*#__PURE__*/jsxRuntime.exports.jsx("h2", {
-            className: "math",
-            children: `${val1} +  ${val2}`
-          }), /*#__PURE__*/jsxRuntime.exports.jsx("input", {
-            value: sum,
-            onChange: e => setSum(e.target.value)
-          }), /*#__PURE__*/jsxRuntime.exports.jsx("button", {
-            type: "submit",
-            children: "Play"
-          })]
+    return /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+      className: "gameplay",
+      children: [/*#__PURE__*/jsxRuntime.exports.jsxs("form", {
+        onSubmit: submit,
+        children: [/*#__PURE__*/jsxRuntime.exports.jsx("h2", {
+          className: "math",
+          children: `${val1} ${operator} ${val2}`
+        }), /*#__PURE__*/jsxRuntime.exports.jsx("input", {
+          value: result,
+          onChange: e => setResult(e.target.value)
         }), /*#__PURE__*/jsxRuntime.exports.jsx("button", {
-          id: "start",
-          type: "button",
-          onClick: handleClick,
-          children: "Home"
+          type: "submit",
+          children: "Play"
         })]
-      });
-    }
+      }), /*#__PURE__*/jsxRuntime.exports.jsx("button", {
+        id: "start",
+        type: "button",
+        onClick: handleClick,
+        children: "Home"
+      })]
+    });
+  };
+
+  const getNumberFrom0to20 = () => Math.floor(Math.random() * 20);
+
+  const getRandomSign = () => {
+    const signs = ["+", "-", "/", "*"];
+    const length = signs.length;
+    const randomIndex = Math.floor(Math.random() * length);
+    return signs[randomIndex];
   };
 
   function End(props) {
