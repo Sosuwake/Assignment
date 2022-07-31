@@ -5,7 +5,10 @@ export function Start(props) {
   const { currentRound, setCurrentRound, setCurrentDisplay, setTime } = props;
 
   const handleChange = (e) => {
-    setCurrentRound(e.target.value);
+    const userValue = e.target.value;
+    if (userValue >= 1 && userValue <= 20) {
+    setCurrentRound(userValue);
+    }
   };
 
   const handleClick = () => {

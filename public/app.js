@@ -34282,7 +34282,11 @@
     } = props;
 
     const handleChange = e => {
-      setCurrentRound(e.target.value);
+      const userValue = e.target.value;
+
+      if (userValue >= 1 && userValue <= 20) {
+        setCurrentRound(userValue);
+      }
     };
 
     const handleClick = () => {
@@ -34321,8 +34325,10 @@
     } = props;
     const [val1, setVal1] = react.exports.useState(getNumberFrom0to20);
     const [val2, setVal2] = react.exports.useState(getNumberFrom0to20);
+    react.exports.useState('');
     const [result, setResult] = react.exports.useState("");
     const [operator, setOperator] = react.exports.useState(getRandomSign);
+    react.exports.useState(1);
     // the input is meant to reset
     // save the operator, expression and given answer in history
     // clear and generate a new math expression
@@ -34438,7 +34444,7 @@
     }
   }
 
-  var css_248z = "body{\n    height: 100vh;\n}\n.expression{\n    display: flex;\n    justify-content: center;\n}\n#root{\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\n    font-size: 2em;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100%;\n}\n.start-button{\n    margin: 1rem auto;\n    display: block;\n}\n.container{\n    background-color: white;\n    border-radius: 0.6rem;\n    padding: 1.5rem;\n}\n#wrong-answer{\n    width: fit-content;\n    margin: auto;\n    color: black;\n    font-size: 0.7rem;\n}\n.intro{\n    color: white;\n}\n.rounds{\n    color: white;\n    width: 400px;\n    height: 100px;\n    background: pink;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.math{\n    color:aliceblue;\n}\n#game_over{\n    color:aliceblue;\n}\n#time_spent{\n    color:aliceblue;\n}\n.end{\n    color: white;\n    width: 400px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.gameplay{\n    color: white;\n    width: 200px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}";
+  var css_248z = "body{\r\n    height: 100vh;\r\n}\r\n.expression{\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n#root{\r\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\r\n    font-size: 2em;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    min-height: 100%;\r\n}\r\n.start-button{\r\n    margin: 1rem auto;\r\n    display: block;\r\n}\r\n.container{\r\n    background-color: white;\r\n    border-radius: 0.6rem;\r\n    padding: 1.5rem;\r\n}\r\n#wrong-answer{\r\n    width: fit-content;\r\n    margin: auto;\r\n    color: black;\r\n    font-size: 0.7rem;\r\n}\r\n.intro{\r\n    color: white;\r\n}\r\n.rounds{\r\n    color: white;\r\n    width: 400px;\r\n    height: 100px;\r\n    background: pink;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 0.5rem;\r\n    border-radius: 0.5rem;\r\n    margin-left: 4rem;\r\n}\r\n.math{\r\n    color:aliceblue;\r\n}\r\n#game_over{\r\n    color:aliceblue;\r\n}\r\n#time_spent{\r\n    color:aliceblue;\r\n}\r\n.end{\r\n    color: white;\r\n    width: 400px;\r\n    height: 200px;\r\n    background: pink;\r\n    align-items: center;\r\n    padding: 0.5rem;\r\n    border-radius: 0.5rem;\r\n    margin-left: 4rem;\r\n}\r\n.gameplay{\r\n    color: white;\r\n    width: 200px;\r\n    height: 200px;\r\n    background: pink;\r\n    align-items: center;\r\n    padding: 0.5rem;\r\n    border-radius: 0.5rem;\r\n    margin-left: 4rem;\r\n}";
   styleInject(css_248z);
 
   const root = client.createRoot(document.getElementById('root'));
