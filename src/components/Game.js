@@ -12,11 +12,10 @@ import { DisplayMap } from "../constants";
 // the amount of time spent on each guess should be displayed in square brackets beside each expression
 
 export const Game = (props) => {
-
   const { currentRound, setCurrentDisplay } = props;
   const [val1, setVal1] = useState(getNumberFrom0to20);
   const [val2, setVal2] = useState(getNumberFrom0to20);
-  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [correctAnswer, setCorrectAnswer] = useState("");
   const [result, setResult] = useState("");
   const [operator, setOperator] = useState(getRandomSign);
   const [count, setCount] = useState(1);
@@ -32,11 +31,7 @@ export const Game = (props) => {
       case "*":
         return val1 * val2;
     }
-    
   };
-
-
-
 
   // when an answer is submitted, whether it is correct or not, the game continues
   // the input is meant to reset
@@ -47,7 +42,10 @@ export const Game = (props) => {
     setVal1(getNumberFrom0to20);
     setVal2(getNumberFrom0to20);
     setOperator(getRandomSign);
-    {/* 
+    setResult("");
+    setCorrectAnswer(compareAnswers);
+    {
+      /* 
       setCorrectAnswer((val1) (Operator) (val2))
       if (result == correctAnswer && count < round) {
         it should move to the next question
@@ -57,9 +55,16 @@ export const Game = (props) => {
              nothing shousld happen
         }
   
- */}
-    setResult("");
-    
+ */
+    }
+  };
+
+  const compareAnswers = () => {
+    if (result == correctAnswer && count < ) {
+      setCurrentDisplay(DisplayMap.Game);
+    } else {
+      setCurrentDisplay(DisplayMap.End);
+    }
   };
 
   const afterSubmit = () => {
@@ -83,9 +88,6 @@ export const Game = (props) => {
     </div>
   );
 };
-
-
-
 
 const getNumberFrom0to20 = () => Math.floor(Math.random() * 20);
 const getRandomSign = () => {
