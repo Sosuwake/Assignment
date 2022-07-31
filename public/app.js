@@ -34330,6 +34330,10 @@
 
     const submit = e => {
       e.preventDefault();
+      setVal1(getNumberFrom0to20);
+      setVal2(getNumberFrom0to20);
+      setOperator(getRandomSign);
+      setResult("");
     };
 
     const handleClick = () => {

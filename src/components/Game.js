@@ -18,12 +18,6 @@ export const Game = (props) => {
   const [result, setResult] = useState("");
   const [operator, setOperator] = useState(getRandomSign);
 
-  const resetRound = () => {
-    setVal1(getNumberFrom0to20);
-    setVal2(getNumberFrom0to20);
-    setOperator(getRandomSign);
-  };
-
   const getResult = (val1, val2, sign) => {
     switch (sign) {
       case "+":
@@ -42,6 +36,10 @@ export const Game = (props) => {
   // clear and generate a new math expression
   const submit = (e) => {
     e.preventDefault();
+    setVal1(getNumberFrom0to20);
+    setVal2(getNumberFrom0to20);
+    setOperator(getRandomSign);
+    setResult("");
   };
 
   const afterSubmit = () => {
