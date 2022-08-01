@@ -32968,7 +32968,43 @@
     Start: "start",
     Game: "game",
     End: "end"
+  }; // export function generateNumber(max) {
+  //     return Math.floor(Math.random() * max)
+  //   }
+
+  const generateNumber = max => Math.floor(Math.random() * max);
+
+  const getResult = (val1, val2, operator) => {
+    switch (operator) {
+      case "+":
+        return val1 + val2;
+
+      case "-":
+        return val1 - val2;
+
+      case "/":
+        return Math.floor(val1 / val2);
+
+      case "x":
+        return val1 * val2;
+    }
   };
+
+  const operator = ['+', 'x', '-', '/'];
+  const sign = {
+    signs: operator[generateNumber(operator.length)]
+  };
+  function generateProblem() {
+    const val1 = generateNumber(20);
+    const val2 = generateNumber(20);
+    const operator = sign.signs;
+    const correctAnswer = getResult(val1, val2, operator);
+    const question = `${val1} ${operator} ${val2}`;
+    return {
+      correctAnswer,
+      question
+    };
+  }
 
   var jsxRuntime = {exports: {}};
 
@@ -34319,37 +34355,54 @@
   }
 
   const Game = props => {
+    const [correctAnswer, setCorrectAnswer] = react.exports.useState('');
+    const [question, setQuestion] = react.exports.useState('');
+    const [result, setResult] = react.exports.useState('');
+    const [count, setCount] = react.exports.useState(1);
     const {
       currentRound,
       setCurrentDisplay
     } = props;
-    const [val1, setVal1] = react.exports.useState(getNumberFrom0to20);
-    const [val2, setVal2] = react.exports.useState(getNumberFrom0to20);
-    const [correctAnswer, setCorrectAnswer] = react.exports.useState("");
-    const [result, setResult] = react.exports.useState("");
-    const [operator, setOperator] = react.exports.useState(getRandomSign);
-    const [count, setCount] = react.exports.useState(1);
-    // the input is meant to reset
-    // save the operator, expression and given answer in history
-    // clear and generate a new math expression
+    react.exports.useEffect(() => {
+      generateExpression();
+    }, []);
 
+    const generateExpression = () => {
+      const expression = generateProblem();
+      setCorrectAnswer(expression.correctAnswer);
+      setQuestion(expression.question);
+    };
 
     const submit = e => {
       e.preventDefault();
-      setVal1(getNumberFrom0to20);
-      setVal2(getNumberFrom0to20);
-      setOperator(getRandomSign);
-      setResult("");
-      setCorrectAnswer(compareAnswers);
-    };
 
-    const compareAnswers = () => {
       if (result == correctAnswer && count < currentRound) {
-        setCurrentDisplay(DisplayMap.Game);
-      } else {
+        generateExpression();
+        setCount(count => count + 1);
+      } else if (result == correctAnswer && count == currentRound) {
         setCurrentDisplay(DisplayMap.End);
       }
-    };
+      /* 
+      setCorrectAnswer((val1) (Operator) (val2))
+      if (result == correctAnswer && count < round) {
+        it should move to the next question
+      }else if (result == correctAnswer && count == round){
+        
+        }else if (result != correctAnswer){
+             nothing shousld happen
+        }
+      */
+
+    }; // const compareAnswers = () => {
+    //   if (result == correctAnswer &&  ) {
+    //   } else {
+    //     setCurrentDisplay(DisplayMap.End);
+    //   }
+    // };
+    // const afterSubmit = () => {
+    //   const history = ["operator", "expression", "givenanswer"];
+    // };
+
 
     const handleClick = () => {
       setCurrentDisplay(DisplayMap.Start);
@@ -34361,7 +34414,7 @@
         onSubmit: submit,
         children: [/*#__PURE__*/jsxRuntime.exports.jsx("h2", {
           className: "math",
-          children: `${val1} ${operator} ${val2}`
+          children: question
         }), /*#__PURE__*/jsxRuntime.exports.jsx("input", {
           value: result,
           onChange: e => setResult(e.target.value)
@@ -34376,16 +34429,12 @@
         children: "Home"
       })]
     });
-  };
-
-  const getNumberFrom0to20 = () => Math.floor(Math.random() * 20);
-
-  const getRandomSign = () => {
-    const signs = ["+", "-", "/", "*"];
-    const length = signs.length;
-    const randomIndex = Math.floor(Math.random() * length);
-    return signs[randomIndex];
-  };
+  }; // const getRandomSign = () => {
+  //   const signs = ["+", "-", "/", "*"];
+  //   const length = signs.length;
+  //   const randomIndex = Math.floor(Math.random() * length);
+  //   return signs[randomIndex];
+  // };
 
   function End(props) {
     const {
@@ -34453,7 +34502,7 @@
     }
   }
 
-  var css_248z = "body{\n    height: 100vh;\n}\n.expression{\n    display: flex;\n    justify-content: center;\n}\n#root{\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\n    font-size: 2em;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100%;\n}\n.start-button{\n    margin: 1rem auto;\n    display: block;\n}\n.container{\n    background-color: white;\n    border-radius: 0.6rem;\n    padding: 1.5rem;\n}\n#wrong-answer{\n    width: fit-content;\n    margin: auto;\n    color: black;\n    font-size: 0.7rem;\n}\n.intro{\n    color: white;\n}\n.rounds{\n    color: white;\n    width: 400px;\n    height: 100px;\n    background: pink;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.math{\n    color:aliceblue;\n}\n#game_over{\n    color:aliceblue;\n}\n#time_spent{\n    color:aliceblue;\n}\n.end{\n    color: white;\n    width: 400px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.gameplay{\n    color: white;\n    width: 200px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}";
+  var css_248z = "body{\r\n    height: 100vh;\r\n}\r\n.expression{\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n#root{\r\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\r\n    font-size: 2em;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    min-height: 100%;\r\n}\r\n.start-button{\r\n    margin: 1rem auto;\r\n    display: block;\r\n}\r\n.container{\r\n    background-color: white;\r\n    border-radius: 0.6rem;\r\n    padding: 1.5rem;\r\n}\r\n#wrong-answer{\r\n    width: fit-content;\r\n    margin: auto;\r\n    color: black;\r\n    font-size: 0.7rem;\r\n}\r\n.intro{\r\n    color: white;\r\n}\r\n.rounds{\r\n    color: white;\r\n    width: 400px;\r\n    height: 100px;\r\n    background: pink;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 0.5rem;\r\n    border-radius: 0.5rem;\r\n    margin-left: 4rem;\r\n}\r\n.math{\r\n    color:aliceblue;\r\n}\r\n#game_over{\r\n    color:aliceblue;\r\n}\r\n#time_spent{\r\n    color:aliceblue;\r\n}\r\n.end{\r\n    color: white;\r\n    width: 400px;\r\n    height: 200px;\r\n    background: pink;\r\n    align-items: center;\r\n    padding: 0.5rem;\r\n    border-radius: 0.5rem;\r\n    margin-left: 4rem;\r\n}\r\n.gameplay{\r\n    color: white;\r\n    width: 200px;\r\n    height: 200px;\r\n    background: pink;\r\n    align-items: center;\r\n    padding: 0.5rem;\r\n    border-radius: 0.5rem;\r\n    margin-left: 4rem;\r\n}";
   styleInject(css_248z);
 
   const root = client.createRoot(document.getElementById('root'));
