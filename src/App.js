@@ -8,6 +8,7 @@ export const App = () => {
   const [currentDisplay, setCurrentDisplay] = useState(DisplayMap.Start);
   const [currentRound, setCurrentRound] = useState("3");
   const [time, setTime] = useState(null);
+  const [gameHistory, setGameHistory] = useState([]);
 
   return (
     <div>
@@ -24,10 +25,16 @@ export const App = () => {
           setCurrentDisplay={setCurrentDisplay}
           currentRound={currentRound}
           setCurrentRound={setCurrentRound}
+          gameHistory={gameHistory}
+          setGameHistory={setGameHistory}
         />
       )}
       {currentDisplay === DisplayMap.End && (
-        <End setCurrentDisplay={setCurrentDisplay} time={time} />
+        <End
+          setCurrentDisplay={setCurrentDisplay}
+          time={time}
+          gameHistory={gameHistory}
+        />
       )}
     </div>
   );
