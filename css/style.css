@@ -58,11 +58,9 @@ body{
 
 .end{
     color: white;
-    width: 400px;
-    height: 200px;
     background: pink;
     align-items: center;
-    padding: 0.5rem;
+    padding: 0.5rem 4rem;
     border-radius: 0.5rem;
     margin-left: 4rem;
 }

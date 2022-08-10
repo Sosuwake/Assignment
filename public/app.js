@@ -34381,7 +34381,8 @@
       const historyItem = {
         question,
         answer: result,
-        time: (Date.now() - time) / 1000
+        time: (Date.now() - time) / 1000,
+        createdAt: Date.now()
       };
       const gameHistoryDuplicate = gameHistory.slice();
       gameHistoryDuplicate.push(historyItem);
@@ -34438,13 +34439,24 @@
   function End(props) {
     const {
       time,
-      gameHistory
+      gameHistory,
+      setGameHistory
     } = props;
     return /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
       className: "end",
       children: [/*#__PURE__*/jsxRuntime.exports.jsx("p", {
         id: "game_over",
         children: "Game Over,"
+      }), /*#__PURE__*/jsxRuntime.exports.jsx("ul", {
+        children: gameHistory.map(gameHistoryItem => /*#__PURE__*/jsxRuntime.exports.jsxs("li", {
+          children: [/*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+            children: ["Question: ", gameHistoryItem.question]
+          }), /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+            children: ["Answer: ", gameHistoryItem.answer]
+          }), /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+            children: ["Time: ", gameHistoryItem.time]
+          })]
+        }, gameHistoryItem.createdAt))
       }), /*#__PURE__*/jsxRuntime.exports.jsxs("p", {
         id: "time_spent",
         children: ["you spent ", Date.now() - time, " ms. "]
@@ -34506,7 +34518,7 @@
     }
   }
 
-  var css_248z = "body{\n    height: 100vh;\n}\n.expression{\n    display: flex;\n    justify-content: center;\n}\n#root{\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\n    font-size: 2em;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100%;\n}\n.start-button{\n    margin: 1rem auto;\n    display: block;\n}\n.container{\n    background-color: white;\n    border-radius: 0.6rem;\n    padding: 1.5rem;\n}\n#wrong-answer{\n    width: fit-content;\n    margin: auto;\n    color: black;\n    font-size: 0.7rem;\n}\n.intro{\n    color: white;\n}\n.rounds{\n    color: white;\n    width: 400px;\n    height: 100px;\n    background: pink;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.math{\n    color:aliceblue;\n}\n#game_over{\n    color:aliceblue;\n}\n#time_spent{\n    color:aliceblue;\n}\n.end{\n    color: white;\n    width: 400px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.gameplay{\n    color: white;\n    width: 200px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}";
+  var css_248z = "body{\n    height: 100vh;\n}\n.expression{\n    display: flex;\n    justify-content: center;\n}\n#root{\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\n    font-size: 2em;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100%;\n}\n.start-button{\n    margin: 1rem auto;\n    display: block;\n}\n.container{\n    background-color: white;\n    border-radius: 0.6rem;\n    padding: 1.5rem;\n}\n#wrong-answer{\n    width: fit-content;\n    margin: auto;\n    color: black;\n    font-size: 0.7rem;\n}\n.intro{\n    color: white;\n}\n.rounds{\n    color: white;\n    width: 400px;\n    height: 100px;\n    background: pink;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.math{\n    color:aliceblue;\n}\n#game_over{\n    color:aliceblue;\n}\n#time_spent{\n    color:aliceblue;\n}\n.end{\n    color: white;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem 4rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.gameplay{\n    color: white;\n    width: 200px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}";
   styleInject(css_248z);
 
   const root = client.createRoot(document.getElementById('root'));

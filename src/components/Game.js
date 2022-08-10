@@ -41,6 +41,7 @@ export const Game = (props) => {
       question,
       answer: result,
       time: (Date.now() - time) / 1000,
+      createdAt: Date.now(),
     };
 
     const gameHistoryDuplicate = gameHistory.slice();
