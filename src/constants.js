@@ -18,16 +18,16 @@ const getResult = (val1, val2, operator) => {
   }
 };
 
-export const operator = ["+", "x", "-", "/"];
+export const operators = ["+", "x", "-", "/"];
 
 export const sign = {
-  signs: operator[generateNumber(operator.length)],
+  signs: operators[generateNumber(operators.length)],
 };
 
 export function generateProblem() {
   const val1 = generateNumber(20);
   const val2 = generateNumber(20);
-  const operator = sign.signs;
+  const operator = operators[generateNumber(operators.length)];
 
   const correctAnswer = getResult(val1, val2, operator);
   const question = `${val1} ${operator} ${val2}`;

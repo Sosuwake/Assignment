@@ -32990,14 +32990,11 @@
     }
   };
 
-  const operator = ["+", "x", "-", "/"];
-  const sign = {
-    signs: operator[generateNumber(operator.length)]
-  };
+  const operators = ["+", "x", "-", "/"];
   function generateProblem() {
     const val1 = generateNumber(20);
     const val2 = generateNumber(20);
-    const operator = sign.signs;
+    const operator = operators[generateNumber(operators.length)];
     const correctAnswer = getResult(val1, val2, operator);
     const question = `${val1} ${operator} ${val2}`;
     return {
@@ -34361,26 +34358,26 @@
       gameHistory,
       setGameHistory
     } = props;
-    const [correctAnswer, setCorrectAnswer] = react.exports.useState("");
-    const [question, setQuestion] = react.exports.useState("");
+    const [expression, setExpression] = react.exports.useState(generateProblem);
     const [result, setResult] = react.exports.useState("");
     const [count, setCount] = react.exports.useState(1);
     const [time, setTime] = react.exports.useState(Date.now());
-    react.exports.useEffect(() => {
-      generateExpression();
-    }, []);
 
     const generateExpression = () => {
       const expression = generateProblem();
-      setCorrectAnswer(expression.correctAnswer);
-      setQuestion(expression.question);
+      setExpression(expression);
       setTime(Date.now());
     };
 
     const updateGameHistory = () => {
+      const {
+        question,
+        correctAnswer
+      } = expression;
       const historyItem = {
         question,
-        answer: result,
+        expectedAnswer: correctAnswer,
+        playerAnswer: result,
         time: (Date.now() - time) / 1000,
         createdAt: Date.now()
       };
@@ -34391,10 +34388,6 @@
 
     const submit = e => {
       e.preventDefault();
-
-      const approximate = number => +Number(number).toFixed(1);
-
-      if (approximate(result) !== approximate(correctAnswer)) return alert("Answer is incorrect! Try again ");
       updateGameHistory();
 
       if (count < currentRound) {
@@ -34419,7 +34412,7 @@
         onSubmit: submit,
         children: [/*#__PURE__*/jsxRuntime.exports.jsx("h2", {
           className: "math",
-          children: question
+          children: expression.question
         }), /*#__PURE__*/jsxRuntime.exports.jsx("input", {
           value: result,
           onChange: e => setResult(e.target.value)
@@ -34448,15 +34441,32 @@
         id: "game_over",
         children: "Game Over,"
       }), /*#__PURE__*/jsxRuntime.exports.jsx("ul", {
-        children: gameHistory.map(gameHistoryItem => /*#__PURE__*/jsxRuntime.exports.jsxs("li", {
-          children: [/*#__PURE__*/jsxRuntime.exports.jsxs("div", {
-            children: ["Question: ", gameHistoryItem.question]
-          }), /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
-            children: ["Answer: ", gameHistoryItem.answer]
-          }), /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
-            children: ["Time: ", gameHistoryItem.time]
-          })]
-        }, gameHistoryItem.createdAt))
+        children: gameHistory.map(gameHistoryItem => {
+          const {
+            createdAt,
+            question,
+            playerAnswer,
+            expectedAnswer,
+            time
+          } = gameHistoryItem;
+
+          const getStyleFromTime = time => {
+            const approximate = number => +Number(number).toFixed(1);
+
+            return approximate(expectedAnswer) !== approximate(playerAnswer) ? "red" : time < 3 ? "green" : "orange";
+          };
+
+          return /*#__PURE__*/jsxRuntime.exports.jsxs("li", {
+            children: [/*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+              children: ["Question: ", question]
+            }), /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+              children: ["Answer: ", playerAnswer]
+            }), /*#__PURE__*/jsxRuntime.exports.jsxs("div", {
+              className: getStyleFromTime(time),
+              children: ["Time: ", time]
+            })]
+          }, createdAt);
+        })
       }), /*#__PURE__*/jsxRuntime.exports.jsxs("p", {
         id: "time_spent",
         children: ["you spent ", Date.now() - time, " ms. "]
@@ -34518,7 +34528,7 @@
     }
   }
 
-  var css_248z = "body{\n    height: 100vh;\n}\n.expression{\n    display: flex;\n    justify-content: center;\n}\n#root{\n    background-image: url(\"https://c4.wallpaperflare.com/wallpaper/818/410/415/albert-einstein-formula-math-wallpaper-preview.jpg\");\n    font-size: 2em;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100%;\n}\n.start-button{\n    margin: 1rem auto;\n    display: block;\n}\n.container{\n    background-color: white;\n    border-radius: 0.6rem;\n    padding: 1.5rem;\n}\n#wrong-answer{\n    width: fit-content;\n    margin: auto;\n    color: black;\n    font-size: 0.7rem;\n}\n.intro{\n    color: white;\n}\n.rounds{\n    color: white;\n    width: 400px;\n    height: 100px;\n    background: pink;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.math{\n    color:aliceblue;\n}\n#game_over{\n    color:aliceblue;\n}\n#time_spent{\n    color:aliceblue;\n}\n.end{\n    color: white;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem 4rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}\n.gameplay{\n    color: white;\n    width: 200px;\n    height: 200px;\n    background: pink;\n    align-items: center;\n    padding: 0.5rem;\n    border-radius: 0.5rem;\n    margin-left: 4rem;\n}";
+  var css_248z = "body {\n  height: 100vh;\n}\n.expression {\n  display: flex;\n  justify-content: center;\n}\n#root {\n  background-color: grey;\n  font-size: 2em;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100%;\n}\n.start-button {\n  margin: 1rem auto;\n  display: block;\n}\n.container {\n  background-color: white;\n  border-radius: 0.6rem;\n  padding: 1.5rem;\n}\n#wrong-answer {\n  width: fit-content;\n  margin: auto;\n  color: black;\n  font-size: 0.7rem;\n}\n.intro {\n  color: white;\n  text-align: center;\n}\n.rounds {\n  color: white;\n  width: 400px;\n  height: 100px;\n  background: pink;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 0.5rem;\n  border-radius: 0.5rem;\n  margin-left: 30rem;\n  position: relative;\n}\n.math {\n  color: aliceblue;\n}\n#game_over {\n  color: aliceblue;\n}\n#time_spent {\n  color: aliceblue;\n}\n.end {\n  color: white;\n  background: pink;\n  align-items: center;\n  padding: 0.5rem 4rem;\n  border-radius: 0.5rem;\n  margin-left: 4rem;\n}\n.gameplay {\n  color: white;\n  width: 200px;\n  height: 200px;\n  background: pink;\n  align-items: center;\n  padding: 0.5rem;\n  border-radius: 0.5rem;\n  margin-left: 1rem;\n}\n.red {\n  color: red;\n}\n.green {\n  color: green;\n}\n.orange {\n  color: orange;\n}";
   styleInject(css_248z);
 
   const root = client.createRoot(document.getElementById('root'));
